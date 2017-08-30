@@ -6,3 +6,4 @@ logger.info("Starting...")
 
 
 
+import './sample.js';

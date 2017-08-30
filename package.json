@@ -10,7 +10,8 @@
     "undeploy": "if exist r:\\akibot-server\\dist (rmdir r:\\akibot-device\\dist /q /s)"
   },
   "dependencies": {
-    "akibot-log": "github:makimenko/akibot-log"
+    "akibot-log": "github:makimenko/akibot-log",
+    "compass-hmc5883l": "^1.0.2"
   },
   "devDependencies": {
     "ts-node": "^3.3.0",
