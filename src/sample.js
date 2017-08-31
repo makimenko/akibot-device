@@ -1,14 +1,20 @@
-var HMC5883L = require('compass-hmc5883l');
+var wpi = require('wiring-pi');
 
-// Connect with the HMC5883L compass on i2c bus number 2
-var compass = new HMC5883L(1);
+var pin_base = 100;
+var count = 16;
+var i2c_addr = 0x20;
 
-// Get the compass values between x and y.  Heading is returned in degrees.
-compass.getHeadingDegrees('x', 'y', function (err, heading) {
-    console.log(heading * 180 / Math.PI);
-});
+console.log("Setup...");
+wpi.wiringPiSetup();
+wpi.mcp23017Setup(pin_base, i2c_addr);
 
-// The following reading will return {x, y, z} values in milli Tesla:
-compass.getValues(function (err, vals) {
-    console.log(vals);
-});
+
+console.log("Running...");
+for (var i = pin_base; i < pin_base + count; i++) {
+    wpi.pinMode(i, 1);
+    wpi.digitalWrite(i, 1);
+}
+wpi.delay(1000);
+
+
+console.log("End.");
