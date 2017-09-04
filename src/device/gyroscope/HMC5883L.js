@@ -3,8 +3,6 @@ var wpi = require('wiring-pi');
 
 export class HMC5883L {
 
-
-
   HMC5883L_REG_CONFIG_A = 0x00;
   HMC5883L_REG_CONFIG_B = 0x01;
 
@@ -23,14 +21,11 @@ export class HMC5883L {
   HMC5883L_MODE_CONTINUOUS = 0x00;
   HMC5883L_MODE_SINGLE = 0x01;
 
-
-
   constructor(address) {
     this.address = address;
     this.fd = wpi.wiringPiI2CSetup(address);
-    wpi.wiringPiI2CWriteReg8(fd, HMC5883L_REG_MODE, HMC5883L_MODE_CONTINUOUS);
+    wpi.wiringPiI2CWriteReg8(this.fd, this.HMC5883L_REG_MODE, this.HMC5883L_MODE_CONTINUOUS);
   }
-
 
   toShort(value) {
     if ((value & (1 << 15)) == 0) {
@@ -40,31 +35,31 @@ export class HMC5883L {
   }
 
   readMag = function () {
-    var msb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_MSB_X);
-    var lsb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_LSB_X);
-    var x = toShort(msb << 8 | lsb);
+    var msb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_MSB_X);
+    var lsb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_LSB_X);
+    var x = this.toShort(msb << 8 | lsb);
 
-    msb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_MSB_Y);
-    lsb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_LSB_Y);
-    var y = toShort(msb << 8 | lsb);
+    msb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_MSB_Y);
+    lsb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_LSB_Y);
+    var y = this.toShort(msb << 8 | lsb);
 
-    msb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_MSB_Z);
-    lsb = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_LSB_Z);
-    var z = toShort(msb << 8 | lsb);
+    msb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_MSB_Z);
+    lsb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_LSB_Z);
+    var z = this.toShort(msb << 8 | lsb);
     return { x: x, y: y, z: z };
   };
 
   readConfig = function () {
     var ret = {};
-    var regValue = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_CONFIG_A);
+    var regValue = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_CONFIG_A);
     ret.averagedSamples = (regValue & 0x60) >> 5;
     ret.dataOutput = (regValue & 0x1c) >> 2;
     ret.measurementConfig = (regValue & 0x03);
 
-    var regValue = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_CONFIG_B);
+    var regValue = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_CONFIG_B);
     ret.gain = (regValue & 0xe0) >> 5;
 
-    var regValue = wpi.wiringPiI2CReadReg8(fd, HMC5883L_REG_MODE);
+    var regValue = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_MODE);
     ret.highSpeed = (regValue & 0x80 != 0);
     ret.operatingMode = (regValue & 0x03);
 
@@ -72,7 +67,7 @@ export class HMC5883L {
   };
 
   dumpConfig = function () {
-    var value = exports.readConfig();
+    var value = this.readConfig();
     var averagedSampled;
     var dataOutput;
     var measurementConfig;
@@ -161,11 +156,13 @@ export class HMC5883L {
         gain = 230;
         break;
     }
-
-    console.log("averagedSampled=%s, dataOutput=%s, measurementConfig=%s, gain=%s", averagedSampled, dataOutput, measurementConfig, gain);
+    return {
+      averagedSampled: averagedSampled,
+      dataOutput: dataOutput,
+      measurementConfig: measurementConfig,
+      gain: gain
+    }
   };
-
-
 
 }
 
