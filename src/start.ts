@@ -1,21 +1,19 @@
 import { logFactory } from "./log-config";
 
-
 var logger = logFactory.getLogger("sandbox");
 
 logger.info("Starting...")
 
-import * as HMC5883L from './device/gyroscope/HMC5883L.js';
-import * as MCP23017 from './device/expander/MCP23017.js';
+import { HMC5883L } from './device/gyroscope/HMC5883L.js';
+import { MCP23017 } from './device/expander/MCP23017.js';
 
-MCP23017.init(100, 0x20);
-MCP23017.pinMode(100+1, 1);
-MCP23017.digitalWrite(100+1, 1);
+var expander = new MCP23017(100, 0x20);
+expander.pinMode(1, 1);
+expander.digitalWrite(1, 1);
 
+var gyroscope = new HMC5883L(0x1e);
 
-
-var data = HMC5883L.readMag();
-logger.info("Gyroscope value: "+JSON.stringify(data));
+logger.info("Gyroscope value: " + JSON.stringify(gyroscope.readMag()));
 
 
 logger.info("end.")
