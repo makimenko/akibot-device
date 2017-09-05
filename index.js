@@ -4,8 +4,8 @@ try {
 
     // Proper device implementation:
     var isFake = false;
-    var HMC5883L = require('./device/gyroscope/HMC5883L.js');
-    var MCP23017 = require('./device/expander/MCP23017.js');
+    var HMC5883L = require('./device/gyroscope/HMC5883L-RPi.js');
+    var MCP23017 = require('./device/expander/MCP23017-RPi.js');
 
 } catch (er) {
     console.warn("wiring-pi is unavailable => using fake implementation");
