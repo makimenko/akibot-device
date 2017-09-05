@@ -17,8 +17,10 @@ try {
     var MCP23017 = require('./device/expander/MCP23017-Fake.js');
 }
 
-module.exports = HMC5883L;
-module.exports = MCP23017;
-module.exports = isFake;
+module.exports = {
+    HMC5883L: HMC5883L,
+    MCP23017: MCP23017,
+    isFake: isFake
+};
 
 
