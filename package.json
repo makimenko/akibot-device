@@ -4,6 +4,7 @@
   "description": "AkiBot Devices",
   "repository": "https://github.com/makimenko/akibot-device.git",
   "license": "MIT",
+  "main": "./index.js",
   "scripts": {
     "deploy": "tsc && xcopy /s /i /y dist r:\\akibot-device\\dist",
     "undeploy": "if exist r:\\akibot-server\\dist (rmdir r:\\akibot-device\\dist /q /s)"

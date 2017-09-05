@@ -13,7 +13,6 @@ try {
     var isFake = true;
     var HMC5883L = require('./device/gyroscope/HMC5883L-Fake.js');
     var MCP23017 = require('./device/expander/MCP23017-Fake.js');
-
 }
 
 module.exports = HMC5883L;
