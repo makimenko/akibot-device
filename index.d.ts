@@ -1,22 +1,32 @@
 export class HMC5883L {
-    constructor(address: any);
-    dumpConfig(): any;
-    readConfig(): any;
-    readMag(): any;
+    constructor(address: number);
+    //dumpConfig(): any;
+    //readConfig(): any;
+    readMag(): { x: number, y: number, z: number };
 }
 
 export class MCP23017 {
-    constructor(...args: any[]);
-    digitalWrite(...args: any[]): void;
-    pinMode(...args: any[]): void;
+    constructor(pinBase: number, addrI2C: number);
+    digitalWrite(pin: number, value: number): void;
+    pinMode(pin: number, mode: number): void;
 }
 
 export const isFake: boolean;
 
+
+
+
 export namespace HMC5883L {
+    function readMag(): { x: number, y: number, z: number };
+    namespace readMag {
+        const prototype: {
+        };
+    }
+
+    /*
     function dumpConfig(): any;
-    function readConfig(): any;
-    function readMag(): any;
+    function readConfig(): any;    
+    
     namespace dumpConfig {
         const prototype: {
         };
@@ -26,14 +36,11 @@ export namespace HMC5883L {
         const prototype: {
         };
     }
+    */
 
-    namespace readMag {
-        const prototype: {
-        };
-    }
 }
 
 export namespace MCP23017 {
-    function digitalWrite(...args: any[]): void;
-    function pinMode(...args: any[]): void;
+    function digitalWrite(pin: number, value: number): void;
+    function pinMode(pin: number, mode: number): void;
 }
