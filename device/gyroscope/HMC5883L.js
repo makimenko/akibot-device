@@ -1,27 +1,36 @@
+// On RaspberyPI it should be availble. On workstation -> not
+try {
+    var wpi = require('wiring-pi');
+    var wpiVersion = require('wiring-pi/package.json').version
+} catch (er) {
+    console.warn("wiring-pi is unavailable");
+    wpi = null;
+}
+
+
 // Refactored Source from https://github.com/nkolban/hmc5883l-pi/blob/master/src/hmc5883l-pi.js
-var wpi = require('wiring-pi');
+class HMC5883L {
+  
+    constructor(address) {
 
-export class HMC5883L {
+    this.HMC5883L_REG_CONFIG_A = 0x00;
+    this.HMC5883L_REG_CONFIG_B = 0x01;
 
-  HMC5883L_REG_CONFIG_A = 0x00;
-  HMC5883L_REG_CONFIG_B = 0x01;
+    this.HMC5883L_REG_MODE = 0x02;
+    this.HMC5883L_REG_MSB_X = 0x03;
+    this.HMC5883L_REG_LSB_X = 0x04;
+    this.HMC5883L_REG_MSB_Z = 0x05;
+    this.HMC5883L_REG_LSB_Z = 0x06;
+    this.HMC5883L_REG_MSB_Y = 0x07;
+    this.HMC5883L_REG_LSB_Y = 0x08;
+    this.HMC5883L_REG_STATUS = 0x09;
+    this.HMC5883L_REG_ID_A = 0x0a;
+    this.HMC5883L_REG_ID_B = 0x0b;
+    this.HMC5883L_REG_ID_C = 0x0c;
 
-  HMC5883L_REG_MODE = 0x02;
-  HMC5883L_REG_MSB_X = 0x03;
-  HMC5883L_REG_LSB_X = 0x04;
-  HMC5883L_REG_MSB_Z = 0x05;
-  HMC5883L_REG_LSB_Z = 0x06;
-  HMC5883L_REG_MSB_Y = 0x07;
-  HMC5883L_REG_LSB_Y = 0x08;
-  HMC5883L_REG_STATUS = 0x09;
-  HMC5883L_REG_ID_A = 0x0a;
-  HMC5883L_REG_ID_B = 0x0b;
-  HMC5883L_REG_ID_C = 0x0c;
+    this.HMC5883L_MODE_CONTINUOUS = 0x00;
+    this.HMC5883L_MODE_SINGLE = 0x01;
 
-  HMC5883L_MODE_CONTINUOUS = 0x00;
-  HMC5883L_MODE_SINGLE = 0x01;
-
-  constructor(address) {
     this.address = address;
     this.fd = wpi.wiringPiI2CSetup(address);
     wpi.wiringPiI2CWriteReg8(this.fd, this.HMC5883L_REG_MODE, this.HMC5883L_MODE_CONTINUOUS);
@@ -34,7 +43,7 @@ export class HMC5883L {
     return (value & ~(1 << 15)) - (1 << 15);
   }
 
-  readMag = function () {
+  readMag () {
     var msb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_MSB_X);
     var lsb = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_LSB_X);
     var x = this.toShort(msb << 8 | lsb);
@@ -49,7 +58,7 @@ export class HMC5883L {
     return { x: x, y: y, z: z };
   };
 
-  readConfig = function () {
+  readConfig () {
     var ret = {};
     var regValue = wpi.wiringPiI2CReadReg8(this.fd, this.HMC5883L_REG_CONFIG_A);
     ret.averagedSamples = (regValue & 0x60) >> 5;
@@ -66,7 +75,7 @@ export class HMC5883L {
     return ret;
   };
 
-  dumpConfig = function () {
+  dumpConfig () {
     var value = this.readConfig();
     var averagedSampled;
     var dataOutput;
@@ -167,3 +176,4 @@ export class HMC5883L {
 }
 
 
+module.exports = HMC5883L;

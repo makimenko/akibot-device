@@ -5,16 +5,10 @@
   "repository": "https://github.com/makimenko/akibot-device.git",
   "license": "MIT",
   "scripts": {
-    "serve": "nodemon --watch src/**/*.ts --exec ts-node src/start.ts",
     "deploy": "tsc && xcopy /s /i /y dist r:\\akibot-device\\dist",
     "undeploy": "if exist r:\\akibot-server\\dist (rmdir r:\\akibot-device\\dist /q /s)"
   },
-  "dependencies": {
-    "akibot-log": "github:makimenko/akibot-log",
+  "optionalDependencies": {
     "wiring-pi": "^2.2.1"
-  },
-  "devDependencies": {
-    "ts-node": "^3.3.0",
-    "typescript": "2.4.2"
   }
 }

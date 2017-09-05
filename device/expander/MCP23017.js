@@ -1,6 +1,13 @@
-var wpi = require('wiring-pi');
+// On RaspberyPI it should be availble. On workstation -> not
+try {
+    var wpi = require('wiring-pi');
+    var wpiVersion = require('wiring-pi/package.json').version
+} catch (er) {
+    console.warn("wiring-pi is unavailable");
+    wpi = null;
+}
 
-export class MCP23017 {
+class MCP23017 {
 
     constructor(pinBase, addrI2C) {
         this.pinBase = pinBase;
@@ -19,3 +26,5 @@ export class MCP23017 {
     }
 
 }
+
+module.exports = MCP23017;
