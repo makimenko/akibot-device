@@ -6,7 +6,10 @@ class HMC5883L {
   }
 
   readMag() {
-    return { x: 1, y: 2, z: 3 };
+    var x = Math.random();
+    var y = Math.random();
+    var z = Math.random();
+    return { x: x, y: y, z: z };
   };
 
   readConfig() {

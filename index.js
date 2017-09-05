@@ -8,7 +8,7 @@ try {
     var MCP23017 = require('./device/expander/MCP23017-RPi.js');
 
 } catch (er) {
-    console.warn("wiring-pi is unavailable => using fake implementation");
+    console.warn("WARNING: wiring-pi is unavailable => using fake implementation");
     // Fake implementation:
     var isFake = true;
     var HMC5883L = require('./device/gyroscope/HMC5883L-Fake.js');
