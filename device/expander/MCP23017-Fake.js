@@ -1,7 +1,7 @@
 class MCP23017 {
 
     constructor(pinBase, addrI2C) {
-        console.warn("FAKE IMPLEMENTATION OF MCP23017");
+        console.warn("WARNING: FAKE IMPLEMENTATION OF MCP23017");
         this.pinBase = pinBase;
         this.addrI2C = addrI2C;
     }

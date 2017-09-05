@@ -11,8 +11,13 @@ export class MCP23017 {
     pinMode(pin: number, mode: number): void;
 }
 
-export const isFake: boolean;
 
+export class SFR05 {
+    constructor(triggerPin: number, echoPin: number);
+    getDistanceMm(): number;
+}
+
+export const isFake: boolean;
 
 
 
@@ -43,4 +48,8 @@ export namespace HMC5883L {
 export namespace MCP23017 {
     function digitalWrite(pin: number, value: number): void;
     function pinMode(pin: number, mode: number): void;
+}
+
+export namespace SFR05 {
+    function getDistanceMm(): number;
 }

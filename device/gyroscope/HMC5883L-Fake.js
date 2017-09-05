@@ -1,7 +1,7 @@
 class HMC5883L {
 
   constructor(address) {
-    console.warn("FAKE IMPLEMENTATION OF HMC5883L");
+    console.warn("WARNING: FAKE IMPLEMENTATION OF HMC5883L");
     this.address = address;
   }
 
