@@ -12,7 +12,7 @@ export class MCP23017 {
 }
 
 
-export class SFR05 {
+export class SRF05 {
     constructor(triggerPin: number, echoPin: number);
     getDistanceMm(): number;
 }
@@ -50,6 +50,9 @@ export namespace MCP23017 {
     function pinMode(pin: number, mode: number): void;
 }
 
-export namespace SFR05 {
+export namespace SRF05 {
     function getDistanceMm(): number;
 }
+
+
+
