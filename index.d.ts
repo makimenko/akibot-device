@@ -19,12 +19,12 @@ export class SRF05 {
 
 export class L239DPair {
     constructor(pinEN: number, pinFirstA: number, pinSecondA: number);
-    write(firstBit: number, secondBit: number, frequency: number);
-    stop();
-    calcFrequency(pctSpeed: number);
-    writePct(firstBit: number, secondBit: number, pctSpeed: number);
-    clockwise(pctSpeed: number);
-    counterClockwise(pctSpeed: number);
+    write(firstBit: number, secondBit: number, frequency: number): void;
+    stop(): void;
+    calcFrequency(pctSpeed: number): void;
+    writePct(firstBit: number, secondBit: number, pctSpeed: number): void;
+    clockwise(pctSpeed: number): void;
+    counterClockwise(pctSpeed: number): void;
 }
 
 
