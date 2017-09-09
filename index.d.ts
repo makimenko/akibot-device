@@ -17,6 +17,17 @@ export class SRF05 {
     getDistanceMm(): number;
 }
 
+export class L239DPair {
+    constructor(pinEN: number, pinFirstA: number, pinSecondA: number);
+    write(firstBit: number, secondBit: number, frequency: number);
+    stop();
+    calcFrequency(pctSpeed: number);
+    writePct(firstBit: number, secondBit: number, pctSpeed: number);
+    clockwise(pctSpeed: number);
+    counterClockwise(pctSpeed: number);
+}
+
+
 export const isFake: boolean;
 
 
@@ -52,6 +63,17 @@ export namespace MCP23017 {
 
 export namespace SRF05 {
     function getDistanceMm(): number;
+}
+
+
+
+export namespace L239DPair {
+    function write(firstBit: number, secondBit: number, frequency: number): void;
+    function stop(): void;
+    function calcFrequency(pctSpeed: number): void;
+    function writePct(firstBit: number, secondBit: number, pctSpeed: number): void;
+    function clockwise(pctSpeed: number): void;
+    function counterClockwise(pctSpeed: number): void;
 }
 
 

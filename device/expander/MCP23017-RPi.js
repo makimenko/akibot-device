@@ -13,7 +13,6 @@ class MCP23017 {
         this.pinBase = pinBase;
         this.addrI2C = addrI2C;
 
-        wpi.wiringPiSetup();
         wpi.mcp23017Setup(pinBase, addrI2C);
     }
 
