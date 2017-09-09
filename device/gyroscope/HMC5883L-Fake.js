@@ -6,9 +6,9 @@ class HMC5883L {
   }
 
   readMag() {
-    var x = Math.random();
-    var y = Math.random();
-    var z = Math.random();
+    var x = Math.random() - 0.5;
+    var y = Math.random() - 0.5;
+    var z = Math.random() - 0.5;
     return { x: x, y: y, z: z };
   };
 
